@@ -1,12 +1,8 @@
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { useCountriesFilter } from "../context/CountriesContext";
 
-export default function SearchFilter({
-  search,
-  setSearch,
-}: {
-  search: string;
-  setSearch: (v: string) => void;
-}) {
+export default function SearchFilter() {
+  const { search, setSearch } = useCountriesFilter();
   return (
     <form>
       <div className="relative">

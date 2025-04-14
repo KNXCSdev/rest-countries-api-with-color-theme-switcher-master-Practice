@@ -1,18 +1,8 @@
-import { useNavigate, useParams } from "react-router";
-import CountryDetails from "../components/home/CountryDetails";
-import useCountries from "../hooks/useCountries";
+import { useNavigate } from "react-router";
+import CountryDetails from "../components/CountryDetails";
 
 export default function Country() {
   const navigate = useNavigate();
-
-  const { id } = useParams();
-  const [countries] = useCountries();
-
-  const country = countries.find(
-    (c: { name: { common: string } }) => c?.name?.common === id,
-  );
-
-  if (!country) return <p>Country not found</p>;
 
   return (
     <div className="flex flex-col gap-24">
@@ -22,7 +12,7 @@ export default function Country() {
       >
         Go Back
       </button>
-      <CountryDetails country={country} />
+      <CountryDetails />
     </div>
   );
 }

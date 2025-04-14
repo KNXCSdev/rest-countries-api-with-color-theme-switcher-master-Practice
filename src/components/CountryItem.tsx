@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router";
 
 interface CountryProps {
@@ -10,7 +11,7 @@ interface CountryProps {
   };
 }
 
-export default function CountryItem({ country }: CountryProps) {
+const CountryItem = React.memo(function CountryItem({ country }: CountryProps) {
   const { name, population, region, capital, flags } = country;
   const navigate = useNavigate();
 
@@ -34,4 +35,6 @@ export default function CountryItem({ country }: CountryProps) {
       </div>
     </div>
   );
-}
+});
+
+export default CountryItem;

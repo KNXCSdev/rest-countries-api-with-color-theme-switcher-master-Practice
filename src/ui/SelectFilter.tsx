@@ -1,10 +1,7 @@
-export default function SelectFilter({
-  region,
-  setRegion,
-}: {
-  region: string;
-  setRegion: (v: string) => void;
-}) {
+import { useCountriesFilter } from "../context/CountriesContext";
+
+export default function SelectFilter() {
+  const { region, setRegion } = useCountriesFilter();
   return (
     <form>
       <select

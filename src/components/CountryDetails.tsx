@@ -1,36 +1,48 @@
+import { useParams } from "react-router";
+import useCountries from "../hooks/useCountries";
+
 type CountryType = {
-  country: {
-    name: {
-      common: string;
-      nativeName: {
-        [key: string]: {
-          official: string;
-          common: string;
-        };
-      };
-    };
-    population: number;
-    region: string;
-    subregion: string;
-    capital: string;
-    flags: {
-      svg: string;
-    };
-    tld: string;
-    currencies: {
+  name: {
+    common: string;
+    nativeName: {
       [key: string]: {
-        name: string;
-        symbol: string;
+        official: string;
+        common: string;
       };
     };
-    languages: {
-      [key: string]: string;
-    };
-    borders?: string[];
   };
+  population: number;
+  region: string;
+  subregion: string;
+  capital: string;
+  flags: {
+    svg: string;
+  };
+  tld: string;
+  currencies: {
+    [key: string]: {
+      name: string;
+      symbol: string;
+    };
+  };
+  languages: {
+    [key: string]: string;
+  };
+  borders: string[] | undefined;
 };
 
-export default function CountryDetails({ country }: CountryType) {
+export default function CountryDetails() {
+  const { id } = useParams();
+  const { countries, error, loading } = useCountries();
+
+  const country = countries?.find(
+    (c: { name: { common: string } }) => c?.name?.common === id,
+  ) as CountryType | undefined;
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!country) return <p>No countries could be found</p>;
+
   const {
     name,
     population,
@@ -50,9 +62,7 @@ export default function CountryDetails({ country }: CountryType) {
     ? Object.values(name.nativeName)[0].common
     : null;
 
-  const languagess = languages
-    ? Object.values(languages).map((lang) => lang + ", ")
-    : null;
+  const languagess = languages ? Object.values(languages).join(", ") : null;
 
   console.log(country);
 
