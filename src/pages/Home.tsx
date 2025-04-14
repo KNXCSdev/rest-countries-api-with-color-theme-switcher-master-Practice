@@ -1,5 +1,5 @@
-import CountriesList from "../components/home/CountriesList";
-import Filters from "../components/home/Filters";
+import CountriesList from "../components/CountriesList";
+import Filters from "../components/Filters";
 
 export default function Home() {
   return (

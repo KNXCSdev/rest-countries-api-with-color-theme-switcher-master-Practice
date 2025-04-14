@@ -2,26 +2,29 @@ import { useEffect, useState } from "react";
 
 export default function useCountries(searchField?: string) {
   const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(
-    function () {
-      async function fetchData() {
-        try {
-          const res = await fetch(
-            `https://restcountries.com/v3.1/${searchField ? `name/${searchField}` : "all"}`,
-          );
-          const data = await res.json();
-
-          setCountries(data);
-        } catch (err) {
-          console.error(err);
-        }
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(
+          `https://restcountries.com/v3.1/${searchField ? `name/${searchField}` : "all"}`,
+        );
+        if (!res.ok) throw new Error("Failed to fetch countries");
+        const data = await res.json();
+        setCountries(data);
+      } catch (err: unknown) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
+    }
 
-      fetchData();
-    },
-    [searchField],
-  );
+    fetchData();
+  }, [searchField]);
 
-  return [countries];
+  return { countries, loading, error };
 }
