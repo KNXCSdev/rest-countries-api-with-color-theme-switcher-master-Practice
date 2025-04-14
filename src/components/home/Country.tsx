@@ -1,4 +1,14 @@
-export default function Country({ country }) {
+interface CountryProps {
+  country: {
+    name: { common: string };
+    population: number;
+    region: string;
+    capital: string;
+    flags: { png: string; svg: string };
+  };
+}
+
+export default function Country({ country }: CountryProps) {
   const { name, population, region, capital, flags } = country;
 
   return (
