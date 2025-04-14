@@ -1,13 +1,9 @@
+import { useCountriesFilter } from "../context/CountriesContext";
 import useCountries from "../hooks/useCountries";
 import CountryItem from "./CountryItem";
 
-export default function CountriesList({
-  search,
-  region,
-}: {
-  search: string;
-  region: string;
-}) {
+export default function CountriesList() {
+  const { search, region } = useCountriesFilter();
   const { countries, loading, error } = useCountries(search);
 
   if (loading) return <p>Loading...</p>;
