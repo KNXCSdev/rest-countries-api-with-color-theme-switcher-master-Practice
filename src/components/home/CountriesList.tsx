@@ -1,6 +1,6 @@
-import Country from "./Country";
 import useCountries from "../../hooks/useCountries";
 import { useCountriesFilter } from "../../context/CountriesContext";
+import CountryItem from "./CountryItem";
 
 export default function CountriesList() {
   const { search, region } = useCountriesFilter();
@@ -17,7 +17,7 @@ export default function CountriesList() {
   return (
     <div className="grid grid-cols-4 gap-24">
       {filteredCountry?.map((country, index) => {
-        return <Country country={country} key={index} />;
+        return <CountryItem country={country} key={index} />;
       })}
     </div>
   );
