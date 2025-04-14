@@ -1,0 +1,21 @@
+export default function Country({ country }) {
+  const { name, population, region, capital, flags } = country;
+
+  return (
+    <div className="flex flex-col gap-4 overflow-hidden rounded-md bg-white shadow-sm">
+      <img src={flags.svg} alt="" className="h-66 w-full object-cover" />
+      <div className="p-8 pb-16">
+        <h2 className="mb-6 text-2xl font-bold">{name.common}</h2>
+        <p className="flex items-center gap-2 text-lg font-semibold">
+          Population: <span className="font-light">{population}</span>
+        </p>
+        <p className="flex items-center gap-2 text-lg font-semibold">
+          Region: <span className="font-light">{region}</span>
+        </p>
+        <p className="flex items-center gap-2 text-lg font-semibold">
+          Capital: <span className="font-light">{capital}</span>
+        </p>
+      </div>
+    </div>
+  );
+}
