@@ -4,10 +4,10 @@ import CountryItem from "./CountryItem";
 
 export default function CountriesList() {
   const { search, region } = useCountriesFilter();
-  const { countries, loading, error } = useCountries(search);
+  const { data: countries = [], isLoading, error } = useCountries(search);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {(error as Error).message}</p>;
   if (!countries.length) return <p>No countries could be found</p>;
 
   const filteredCountries = region

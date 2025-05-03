@@ -33,13 +33,13 @@ type CountryType = {
 
 export default function CountryDetails() {
   const { id } = useParams();
-  const { countries, error, loading } = useCountries();
+  const { data: countries = [], isLoading, error } = useCountries();
 
   const country = countries?.find(
     (c: { name: { common: string } }) => c?.name?.common === id,
   ) as CountryType | undefined;
 
-  if (loading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!country) return <p>No countries could be found</p>;
 
